@@ -1,24 +1,30 @@
-
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Camera, Film, Video, Layers, Music } from "lucide-react";
 
 const Index = () => {
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
   const projects = [
     {
       title: "Commercial: Brand Story",
       description: "A cinematic commercial showcasing brand values through storytelling",
       imageUrl: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81",
+      videoUrl: "https://static.videezy.com/system/resources/previews/000/021/751/original/P1033783.mp4",
     },
     {
       title: "Music Video: Rhythm & Beats",
       description: "Dynamic music video with synchronized visual effects",
       imageUrl: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+      videoUrl: "https://static.videezy.com/system/resources/previews/000/021/749/original/P1033781.mp4",
     },
     {
       title: "Short Film: Urban Tales",
       description: "A compelling narrative about city life and connections",
       imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+      videoUrl: "https://static.videezy.com/system/resources/previews/000/021/750/original/P1033782.mp4",
     },
   ];
 
@@ -30,19 +36,28 @@ const Index = () => {
     { icon: Layers, title: "Color Grading", description: "Expert color correction and grading" },
   ];
 
+  const handleProjectClick = (index: number) => {
+    setActiveVideoIndex(index);
+    setIsFullscreen(true);
+  };
+
+  const handleFullscreenClose = () => {
+    setIsFullscreen(false);
+  };
+
   return (
     <div className="min-h-screen bg-editor-dark text-white">
-      {/* Hero Section */}
+      {/* Hero Section with Auto-playing Videos */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <video
             autoPlay
             muted
             loop
-            className="w-full h-full object-cover opacity-50"
-            poster="https://images.unsplash.com/photo-1605810230434-7631ac76ec81"
+            className="w-full h-full object-cover opacity-50 transition-opacity duration-1000"
+            key={projects[activeVideoIndex].videoUrl}
           >
-            <source src="your-demo-reel.mp4" type="video/mp4" />
+            <source src={projects[activeVideoIndex].videoUrl} type="video/mp4" />
           </video>
         </div>
         <div className="container relative z-10 text-center animate-fade-up">
@@ -52,7 +67,7 @@ const Index = () => {
           <p className="text-xl md:text-2xl mb-8 text-editor-gray max-w-2xl mx-auto">
             Transforming raw footage into compelling visual stories
           </p>
-          <Button className="bg-editor-blue hover:bg-editor-skyblue text-white">
+          <Button className="bg-editor-blue hover:bg-editor-skyblue text-white transform transition-all duration-300 hover:scale-105">
             View My Work
           </Button>
         </div>
@@ -64,11 +79,30 @@ const Index = () => {
           <h2 className="text-4xl font-bold mb-12 text-center">Featured Projects</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
-              <ProjectCard key={index} {...project} />
+              <ProjectCard 
+                key={index} 
+                {...project} 
+                onClick={() => handleProjectClick(index)}
+              />
             ))}
           </div>
         </div>
       </section>
+
+      {/* Fullscreen Video Modal */}
+      {isFullscreen && (
+        <div 
+          className="fixed inset-0 z-50 bg-black flex items-center justify-center"
+          onClick={handleFullscreenClose}
+        >
+          <video
+            autoPlay
+            controls
+            className="w-full h-full object-contain"
+            src={projects[activeVideoIndex].videoUrl}
+          />
+        </div>
+      )}
 
       {/* Services Section */}
       <section className="py-20 bg-editor-dark/90">

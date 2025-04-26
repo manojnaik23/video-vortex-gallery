@@ -21,22 +21,22 @@ const Index = () => {
 
   const projects = [
     {
-      title: "Commercial: Brand Story",
-      description: "A cinematic commercial showcasing brand values through storytelling",
-      imageUrl: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81",
-      videoUrl: "https://static.videezy.com/system/resources/previews/000/021/751/original/P1033783.mp4",
+      title: "Nature Documentary",
+      description: "Stunning natural landscapes and wildlife footage",
+      imageUrl: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e",
+      videoUrl: "https://static.videezy.com/system/resources/previews/000/044/479/original/200723_02_Mountain.mp4",
     },
     {
-      title: "Music Video: Rhythm & Beats",
-      description: "Dynamic music video with synchronized visual effects",
-      imageUrl: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-      videoUrl: "https://static.videezy.com/system/resources/previews/000/021/749/original/P1033781.mp4",
+      title: "Urban Timelapse",
+      description: "Dynamic city scenes and modern architecture",
+      imageUrl: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000",
+      videoUrl: "https://static.videezy.com/system/resources/previews/000/046/556/original/200824_08_City_Sunset.mp4",
     },
     {
-      title: "Short Film: Urban Tales",
-      description: "A compelling narrative about city life and connections",
-      imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
-      videoUrl: "https://static.videezy.com/system/resources/previews/000/021/750/original/P1033782.mp4",
+      title: "Ocean Waves",
+      description: "Calming ocean waves and beach scenes",
+      imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+      videoUrl: "https://static.videezy.com/system/resources/previews/000/044/777/original/PNW_003.mp4",
     },
   ];
 

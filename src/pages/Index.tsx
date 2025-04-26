@@ -1,11 +1,21 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ProjectCard } from "@/components/ProjectCard";
-import { Camera, Film, Video, Layers, Music } from "lucide-react";
+import { Film, Video, Camera, Music, Layers } from "lucide-react";
 
 const Index = () => {
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+    const interval = setInterval(() => {
+      setActiveVideoIndex((prev) => (prev + 1) % projects.length);
+    }, 8000);
+    return () => clearInterval(interval);
+  }, []);
 
   const projects = [
     {
@@ -54,36 +64,43 @@ const Index = () => {
             autoPlay
             muted
             loop
-            className="w-full h-full object-cover opacity-50 transition-opacity duration-1000"
+            className={`w-full h-full object-cover transition-opacity duration-1000 ${
+              isVisible ? 'opacity-50' : 'opacity-0'
+            }`}
             key={projects[activeVideoIndex].videoUrl}
           >
             <source src={projects[activeVideoIndex].videoUrl} type="video/mp4" />
           </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-editor-dark/80 via-transparent to-editor-dark" />
         </div>
-        <div className="container relative z-10 text-center animate-fade-up">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
+        <div className={`container relative z-10 text-center transition-all duration-1000 transform ${
+          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+        }`}>
+          <h1 className="text-6xl md:text-8xl font-bold mb-6 text-white bg-gradient-to-r from-editor-blue to-editor-skyblue bg-clip-text text-transparent">
             Creative Video Editor
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-editor-gray max-w-2xl mx-auto">
             Transforming raw footage into compelling visual stories
           </p>
-          <Button className="bg-editor-blue hover:bg-editor-skyblue text-white transform transition-all duration-300 hover:scale-105">
+          <Button className="bg-editor-blue hover:bg-editor-skyblue text-white transform transition-all duration-500 hover:scale-110 hover:shadow-lg hover:shadow-editor-blue/50">
             View My Work
           </Button>
         </div>
       </section>
 
       {/* Projects Section */}
-      <section className="py-20 bg-[#1A1F2C]/95">
+      <section className="py-20 bg-gradient-to-b from-editor-dark via-editor-dark/95 to-editor-dark">
         <div className="container">
-          <h2 className="text-4xl font-bold mb-12 text-center">Featured Projects</h2>
+          <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-white to-editor-gray bg-clip-text text-transparent">Featured Projects</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
-              <ProjectCard 
-                key={index} 
-                {...project} 
-                onClick={() => handleProjectClick(index)}
-              />
+              <div className="transform transition-all duration-500 hover:translate-y-[-10px]" 
+                   key={index}>
+                <ProjectCard 
+                  {...project} 
+                  onClick={() => handleProjectClick(index)}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -92,28 +109,39 @@ const Index = () => {
       {/* Fullscreen Video Modal */}
       {isFullscreen && (
         <div 
-          className="fixed inset-0 z-50 bg-black flex items-center justify-center"
+          className="fixed inset-0 z-50 bg-black flex items-center justify-center transition-opacity duration-300"
           onClick={handleFullscreenClose}
         >
-          <video
-            autoPlay
-            controls
-            className="w-full h-full object-contain"
-            src={projects[activeVideoIndex].videoUrl}
-          />
+          <div className="relative w-full h-full">
+            <video
+              autoPlay
+              controls
+              className="w-full h-full object-contain"
+              src={projects[activeVideoIndex].videoUrl}
+            />
+            <Button 
+              className="absolute top-4 right-4 bg-editor-blue/80 hover:bg-editor-blue text-white"
+              onClick={handleFullscreenClose}
+            >
+              Close
+            </Button>
+          </div>
         </div>
       )}
 
       {/* Services Section */}
-      <section className="py-20 bg-editor-dark/90">
+      <section className="py-20 bg-gradient-to-t from-editor-dark/90 to-editor-dark">
         <div className="container">
-          <h2 className="text-4xl font-bold mb-12 text-center">Services</h2>
+          <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-white to-editor-gray bg-clip-text text-transparent">Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <div key={index} className="p-6 rounded-lg bg-editor-dark/50 backdrop-blur-sm border border-editor-blue/10 hover:border-editor-blue/30 transition-colors">
-                <service.icon className="w-12 h-12 text-editor-blue mb-4" />
-                <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                <p className="text-editor-gray">{service.description}</p>
+              <div 
+                key={index} 
+                className="group p-8 rounded-lg bg-editor-dark/50 backdrop-blur-sm border border-editor-blue/10 hover:border-editor-blue/30 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-lg hover:shadow-editor-blue/20"
+              >
+                <service.icon className="w-12 h-12 text-editor-blue mb-4 transform transition-transform duration-500 group-hover:scale-110 group-hover:text-editor-skyblue" />
+                <h3 className="text-xl font-semibold mb-2 group-hover:text-editor-blue transition-colors duration-300">{service.title}</h3>
+                <p className="text-editor-gray group-hover:text-white/80 transition-colors duration-300">{service.description}</p>
               </div>
             ))}
           </div>
@@ -123,11 +151,11 @@ const Index = () => {
       {/* Contact Section */}
       <section className="py-20 bg-gradient-to-b from-editor-dark to-black">
         <div className="container text-center">
-          <h2 className="text-4xl font-bold mb-8">Let's Create Together</h2>
+          <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-editor-blue to-editor-skyblue bg-clip-text text-transparent">Let's Create Together</h2>
           <p className="text-editor-gray text-xl mb-8 max-w-2xl mx-auto">
             Have a project in mind? I'd love to help bring your vision to life.
           </p>
-          <Button className="bg-editor-blue hover:bg-editor-skyblue text-white">
+          <Button className="bg-editor-blue hover:bg-editor-skyblue text-white transform transition-all duration-500 hover:scale-110 hover:shadow-lg hover:shadow-editor-blue/50">
             Get in Touch
           </Button>
         </div>

@@ -32,7 +32,7 @@ export const ProjectCard = ({ title, description, imageUrl, videoUrl, onClick }:
 
   return (
     <Card 
-      className="group relative overflow-hidden rounded-lg bg-editor-dark cursor-pointer transform transition-all duration-300 hover:scale-105"
+      className="group relative overflow-hidden rounded-lg bg-editor-dark cursor-pointer transform transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-editor-blue/20"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
@@ -41,7 +41,7 @@ export const ProjectCard = ({ title, description, imageUrl, videoUrl, onClick }:
         {videoUrl ? (
           <video
             ref={videoRef}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover transform transition-transform duration-700 scale-105 group-hover:scale-100"
             src={videoUrl}
             muted
             playsInline
@@ -55,13 +55,13 @@ export const ProjectCard = ({ title, description, imageUrl, videoUrl, onClick }:
             className="h-full w-full object-cover"
           />
         )}
-        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-          <Play className="w-12 h-12 text-white animate-pulse" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+          <Play className="w-16 h-16 text-white animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-4 group-hover:translate-y-0" />
         </div>
       </div>
-      <div className="p-4 transform transition-transform duration-300 group-hover:-translate-y-1">
-        <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
-        <p className="text-editor-gray text-sm">{description}</p>
+      <div className="p-6 transform transition-all duration-500 group-hover:-translate-y-2">
+        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-editor-blue transition-colors duration-300">{title}</h3>
+        <p className="text-editor-gray text-sm group-hover:text-white/80 transition-colors duration-300">{description}</p>
       </div>
     </Card>
   );

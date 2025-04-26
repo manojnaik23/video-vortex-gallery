@@ -1,8 +1,10 @@
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ProjectCard } from "@/components/ProjectCard";
+import { ContactInfo } from "@/components/ContactInfo";
 import { Film, Video, Camera, Music, Layers } from "lucide-react";
+import { motion } from 'framer-motion';
 
 const Index = () => {
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
@@ -151,13 +153,24 @@ const Index = () => {
       {/* Contact Section */}
       <section className="py-20 bg-gradient-to-b from-editor-dark to-black">
         <div className="container text-center">
-          <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-editor-blue to-editor-skyblue bg-clip-text text-transparent">Let's Create Together</h2>
-          <p className="text-editor-gray text-xl mb-8 max-w-2xl mx-auto">
+          <motion.h2 
+            className="text-4xl font-bold mb-8 bg-gradient-to-r from-editor-blue to-editor-skyblue bg-clip-text text-transparent"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            Let's Create Together
+          </motion.h2>
+          <motion.p 
+            className="text-editor-gray text-xl mb-12 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             Have a project in mind? I'd love to help bring your vision to life.
-          </p>
-          <Button className="bg-editor-blue hover:bg-editor-skyblue text-white transform transition-all duration-500 hover:scale-110 hover:shadow-lg hover:shadow-editor-blue/50">
-            Get in Touch
-          </Button>
+          </motion.p>
+          
+          <ContactInfo />
         </div>
       </section>
     </div>

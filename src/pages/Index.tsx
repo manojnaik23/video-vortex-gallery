@@ -33,9 +33,9 @@ const Index = () => {
       videoUrl: "https://static.videezy.com/system/resources/previews/000/046/556/original/200824_08_City_Sunset.mp4",
     },
     {
-      title: "Ocean Waves",
-      description: "Calming ocean waves and beach scenes",
-      imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+      title: "Creative Showcase",
+      description: "A dynamic visual journey of creativity",
+      imageUrl: "public/lovable-uploads/eddc8375-3c06-493f-9cac-2cfa7d4e47b0.png",
       videoUrl: "https://static.videezy.com/system/resources/previews/000/044/777/original/PNW_003.mp4",
     },
   ];
